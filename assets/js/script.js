@@ -51,6 +51,7 @@ function getQuestion() {
   // update question
   var titleEl = document.getElementById("question-title");
   titleEl.textContent = currentQuestion.title;
+  titleEl.classList.add("text-center");
 
   // removes old choices
   choicesEl.innerHTML = "";
