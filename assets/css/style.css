@@ -1,6 +1,6 @@
   /*sets global font */
   body {
-    font-family: "Times New Roman";
+    font-family: 'Open Sans', sans-serif;
   }
 
 
@@ -21,7 +21,7 @@
   .jumbotron {
     text-align: center;
     background-color: transparent;
-    background-color: maroon;
+    background-color: dodgerblue;
     color: white;
     border-radius: 0;
     border-bottom: 10px solid black;
