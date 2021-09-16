@@ -60,6 +60,7 @@ function getQuestion() {
     // create new button for each answer
     var answerButton = document.createElement("button");
     answerButton.setAttribute("class", "choice");
+    answerButton.classList.add("btn", "btn-primary");
     answerButton.setAttribute("value", choice);
 
     answerButton.textContent = i + 1 + ". " + choice;
@@ -117,7 +118,9 @@ function quizEnd() {
 }
 
 
-function saveHighscore() {
+function saveHighscore(e) {
+    e.preventDefault();
+
   // get initials
   var initials = initialsEl.value.trim();
 
