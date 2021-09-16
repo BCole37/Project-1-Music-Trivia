@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Music Trivia</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <!-- Links -->
+     <link
+     rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+   />
+   <link
+     rel="stylesheet"
+     href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+   />
+   <link
+     href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+     rel="stylesheet"
+   />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="scores"><a href="HighscorePage.html">View Highscores</a></div>
+    <header class="jumbotron">
+        <h1>Music Trivia</h1>
+
+    </header>
+
+
+    <div class="wrapper">
+      <!-- what shows up at first -->
+      <div id="start-screen" class="start">
+
+        <p>
+            Attach these songs to the correct artist.
+        </p>
+        <button id="start">Start Quiz</button>
+      </div>
+      <!-- hides when first loaded -->
+      <div id="questions" class="hide">
+        <h2 id="question-title"></h2>
+        <div id="choices" class="choices"></div>
+      </div>
+
+      <!--  hides when first loaded-->
+      <div id="end-screen" class="hide">
+        <h2>All done!</h2>
+        <p>Your final score is <span id="final-score"></span>.</p>
+        <p>
+          Enter initials: <input type="text" id="initials"/>
+          <button id="submit">Submit</button>
+        </p>
+      </div>
+
+      <div id="feedback" class="feedback hide"></div>
+    </div>
+
+    <!-- script links -->
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>
