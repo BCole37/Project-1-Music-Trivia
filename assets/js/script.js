@@ -5,15 +5,19 @@ var submitBtn = document.querySelector("#submit");
 var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
+var quizLengthEl = document.querySelector("#quiz-length");
+var quizProgressBarEl = document.querySelector("#quiz-bar");
 
 var key = "903e9e034afc51efaa5991d33e9e4306";
 
 var generatedResults = [];
 var answer = "";
 
-// json results for artist search
+// default length of 3
+var quizLength = 3;
+
 function artistResults(json) {
-  //
+
   if (json.message.header.status_code == "200" && json.message.body.artist.artist_name !== "") {
     artist = json.message.body.artist.artist_name;
     getTracks(artist);
@@ -25,7 +29,6 @@ function artistResults(json) {
 
 // json results for track array from searched artist
 function trackResults(json) {
-
   //empty array to store generated track list
   generatedResults= [];
     //check to make sure we get a result, and that there's at least 5 tracks
@@ -53,12 +56,18 @@ function trackResults(json) {
       console.log("trackResults() had an error.  Starting over.");
       getArtist();
     }
+  } else {
+    console.log("trackResults() had an error.  Starting over.");
+    getArtist();
+  }
 }
 
 // json results for lyrics to specific track
 function lyricResults(json) {
   if (json.message.header.status_code == "200" && json.message.body.lyrics_body !== "") {
+
     //split lyrics at \n (new line) to make it only display 2 lines
+
     var lyric = json.message.body.lyrics.lyrics_body.split(/\r?\n/);
     var lyrics = [];
     for (var i = 0; i < 3; i++) {
@@ -97,6 +106,7 @@ function generateQuestions(lyric) {
   //get the element and display the lyric
   var titleEl = document.getElementById("question-title");
   titleEl.textContent = lyric;
+  titleEl.classList.add("text-center");
   choicesEl.innerHTML = "";
 
   //iterate through the results array and display in the question buttons
@@ -104,31 +114,36 @@ function generateQuestions(lyric) {
     var choice = generatedResults[i].trackName;
     var answerButton = document.createElement("button");
     answerButton.setAttribute("class", "choice");
+    answerButton.classList.add("btn", "btn-primary");
     answerButton.setAttribute("value", choice);
     answerButton.textContent = i + 1 + ". " + choice;
     answerButton.addEventListener("click", questionClick);
     choicesEl.appendChild(answerButton);
   }
   //Our little cheat answer.  REMOVE BEFORE FINAL SUBMISSION
+
   console.log(answer);
 }
 
 //little helper function to get a random number
 function randomize(length) {
-    return Math.floor(Math.random() * (length - 1));
+  return Math.floor(Math.random() * (length - 1));
 }
 
 // quiz variables
 var currentQuestionIndex = 0;
 var finalScore = 0;
 
-function startQuiz() {
+function startQuiz(e) {
+  e.preventDefault();
+
+  quizLength = quizLengthEl.value;
   // hides the start screen
   var startScreenEl = document.getElementById("start-screen");
   startScreenEl.setAttribute("class", "hide");
 
   // reveals the questions 
-  questionsEl.removeAttribute("class");
+  questionsEl.classList.remove("hide");
 
   getArtist();
 }
@@ -136,52 +151,56 @@ function startQuiz() {
 function questionClick() {
   // check if answer is correct
   if (this.value !== answer) {
-   
     feedbackEl.textContent = "Incorrect";
-    } else {
+  }
+  else {
     feedbackEl.textContent = "Correct";
     finalScore++;
-    }
+  }
+
 
   // feedback on if the answer was right or wrong
   feedbackEl.setAttribute("class", "feedback");
-  setTimeout(function() {
+  setTimeout(function () {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 2000);
 
- 
-  
-  // next question
+  currentQuestionIndex++;
 
-  // currentQuestionIndex++;
+  let progress = (currentQuestionIndex / quizLength).toFixed(2) * 100;
+  quizProgressBarEl.style.width = progress + "%";
+  quizProgressBarEl.setAttribute("aria-valuenow", progress)
 
   // end after last question else move to next question
-  if (currentQuestionIndex === questions.length) {
+  if (currentQuestionIndex >= quizLength) {
     quizEnd();
   } else {
-     getArtist();
+    getArtist();
   }
 }
 
 
 // switches display from the questions screen to the results screen
 function quizEnd() {
-  
+  quizProgressBarEl.classList.remove("progress-bar-animated")
+  quizProgressBarEl.classList.remove("progress-bar-striped")
 
   // show end screen
   var endScreenEl = document.getElementById("end-screen");
-  endScreenEl.removeAttribute("class");
+  endScreenEl.classList.remove("hide");
 
   // show final score
   var finalScoreEl = document.getElementById("final-score");
-  finalScoreEl.textContent = finalScore;
+  finalScoreEl.textContent = (finalScore/quizLength).toFixed(2) * 100 + "%";
 
   // hide questions section
   questionsEl.setAttribute("class", "hide");
 }
 
 
-function saveHighscore() {
+function saveHighscore(e) {
+  e.preventDefault();
+
   // get initials
   var initials = initialsEl.value.trim();
 
@@ -192,7 +211,7 @@ function saveHighscore() {
 
     // format the new score
     var newScore = {
-      score: finalScore,
+      score: (finalScore/quizLength).toFixed(2) * 100 + "%",
       initials: initials
     };
 

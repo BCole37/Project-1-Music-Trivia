@@ -1,11 +1,8 @@
   /*sets global font */
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Times New Roman";
   }
 
-  #question-title {
-    white-space: pre-wrap;
-  }
 
   .wrapper {
     margin: 100px auto 0 auto;
@@ -24,11 +21,10 @@
   .jumbotron {
     text-align: center;
     background-color: transparent;
-    background-color: dodgerblue;
+    background-color: maroon;
     color: white;
     border-radius: 0;
     border-bottom: 10px solid black;
-    min-height: 150px;
   }
 
   .scores {
@@ -101,51 +97,4 @@
     padding: 5px;
     list-style: square;
   }
-
-  #question-title {
-    margin-bottom: 50px;
-  }
   
-  .skeleton {
-    animation: loading 1s infinite alternate; 
-  }
-
-  .skeleton-lyric {
-    width: 100%;
-    height: 35px;
-    display: block;
-    border-radius: 10px;
-    margin-bottom: -70px;
-  }
-  
-  .skeleton-lyric:nth-child(even) {
-    width: 75%;
-  }
-
-  .skeleton-button {
-    width: 50%;
-    height: 35px;
-    display: block;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-
-  @keyframes loading {
-    0% {
-      background-color: lightgray;
-    }
-
-    100% {
-      background-color: gray;
-    }
-    
-  }
-
-  #quiz-length {
-    width: 25%;
-  }
-
-  #quiz-progress {
-    margin-top: 20px;
-    margin-bottom: -35px;
-  }
