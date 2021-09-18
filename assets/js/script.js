@@ -30,32 +30,34 @@ function artistResults(json) {
 // json results for track array from searched artist
 function trackResults(json) {
   //empty array to store generated track list
-  generatedResults= [];
-    //check to make sure we get a result, and that there's at least 5 tracks
-    if (json.message.header.status_code == "200" && json.message.body.track_list.length > 5) {
-      for (var i = 0; i < 5; i++) {
-        //check to make sure track isn't explicit, and has lyrics and add it to the array of results
-        if (json.message.body.track_list[i].track.explicit == 0 && json.message.body.track_list[i].track.has_lyrics == 1)
-        generatedResults.push( {"trackID": json.message.body.track_list[i].track.track_id, 
-                                "artist": json.message.body.track_list[i].track.artist_name, 
-                                "trackName": json.message.body.track_list[i].track.track_name });
-        }
-        //if no or too few results meet our criteria pull another random artist
-        if (generatedResults.length == 0 || generatedResults.length < 5) {
-          getArtist();
-        } else {
-          //otherwise pick a track at random and get the lyrics, and set it as the answer
-          var random = randomize(generatedResults.length);
-          var trackID = generatedResults[random];
-          answer = trackID.trackName;
-          console.log(generatedResults);
-          getLyrics(trackID);
-        }
-    } else {
-      //no good results, pull another random artist
-      console.log("trackResults() had an error.  Starting over.");
-      getArtist();
+  generatedResults = [];
+  //check to make sure we get a result, and that there's at least 5 tracks
+  if (json.message.header.status_code == "200" && json.message.body.track_list.length > 5) {
+    for (var i = 0; i < 5; i++) {
+      //check to make sure track isn't explicit, and has lyrics and add it to the array of results
+      if (json.message.body.track_list[i].track.explicit == 0 && json.message.body.track_list[i].track.has_lyrics == 1)
+        generatedResults.push({
+          "trackID": json.message.body.track_list[i].track.track_id,
+          "artist": json.message.body.track_list[i].track.artist_name,
+          "trackName": json.message.body.track_list[i].track.track_name
+        });
     }
+    //if no or too few results meet our criteria pull another random artist
+    if (generatedResults.length == 0 || generatedResults.length < 5) {
+      getArtist();
+    } else {
+      //otherwise pick a track at random and get the lyrics, and set it as the answer
+      var random = randomize(generatedResults.length);
+      var trackID = generatedResults[random];
+      answer = trackID.trackName;
+      console.log(generatedResults);
+      getLyrics(trackID);
+    }
+  } else {
+    //no good results, pull another random artist
+    console.log("trackResults() had an error.  Starting over.");
+    getArtist();
+  }
 }
 
 // json results for lyrics to specific track
@@ -68,7 +70,7 @@ function lyricResults(json) {
     var lyrics = [];
     for (var i = 0; i < 3; i++) {
       lyrics += lyric[i] + "\n";
-    }  
+    }
     //generate the questions and send it with the lyrics
     generateQuestions(lyrics);
   } else {
@@ -187,7 +189,7 @@ function quizEnd() {
 
   // show final score
   var finalScoreEl = document.getElementById("final-score");
-  finalScoreEl.textContent = (finalScore/quizLength).toFixed(2) * 100 + "%";
+  finalScoreEl.textContent = (finalScore / quizLength).toFixed(2) * 100 + "%";
 
   // hide questions section
   questionsEl.setAttribute("class", "hide");
@@ -207,7 +209,7 @@ function saveHighscore(e) {
 
     // format the new score
     var newScore = {
-      score: (finalScore/quizLength).toFixed(2) * 100 + "%",
+      score: (finalScore / quizLength).toFixed(2) * 100 + "%",
       initials: initials
     };
 
