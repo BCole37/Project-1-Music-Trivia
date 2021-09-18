@@ -8,10 +8,11 @@ function printHighscores() {
   var highscores = JSON.parse(window.localStorage.getItem("highscores")) || [];
 
   // sorts scores
-  highscores.sort(function (a, b) {
-    return b.score - a.score;
+  highscores = highscores.sort(function (a, b) {
+    return parseInt(b.score) - parseInt(a.score);
   });
 
+  console.log(highscores);
   // highscores.forEach(function (score) {
   //   // create li element and add to the list
   //   // var scoreAdd = document.createElement("li");
