@@ -100,4 +100,8 @@
     padding: 5px;
     list-style: square;
   }
+
+  #question-title {
+    margin-bottom: 50px;
+  }
   

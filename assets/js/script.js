@@ -86,6 +86,7 @@ function generateQuestions(lyric) {
         question.push( { "trackname": generatedResults[randomIndex].trackName} );
         generatedResults.splice([randomIndex], 1);
     }
+    console.log(question)
 
     var randomTrack = randomize(question.length);
     question[randomTrack].trackname = answer;
@@ -127,7 +128,7 @@ function startQuiz() {
   startScreenEl.setAttribute("class", "hide");
 
   // reveals the questions 
-  questionsEl.removeAttribute("class");
+  questionsEl.classList.remove("hide");
 
   getArtist();
 }
