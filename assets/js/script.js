@@ -56,10 +56,6 @@ function trackResults(json) {
       console.log("trackResults() had an error.  Starting over.");
       getArtist();
     }
-  } else {
-    console.log("trackResults() had an error.  Starting over.");
-    getArtist();
-  }
 }
 
 // json results for lyrics to specific track
