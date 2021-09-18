@@ -22,15 +22,19 @@ function artistResults(json) {
 }
 
 function trackResults(json) {
-    generatedResults = [];
+    results = [];
+    generatedResults= [];
     
     if (json.message.header.status_code == "200" && json.message.body.track_list.length > 0) {
-        for (var i = 0; i < json.message.body.track_list.length; i++) {
+      console.log(json);
+        for (var i = 0; i < 5; i++) {
             if (json.message.body.track_list[i].track.explicit == 0 && json.message.body.track_list[i].track.has_lyrics == 1) {
+              if (!results.includes(json.message.body.track_list[i].track.track_name)) {
                 generatedResults.push( {"trackID": json.message.body.track_list[i].track.track_id, 
                 "artist": json.message.body.track_list[i].track.artist_name, 
                 "trackName": json.message.body.track_list[i].track.track_name });
             }
+          }
         }
         if (generatedResults.length == 0 || generatedResults.length < 5) {
             getArtist();
@@ -38,8 +42,7 @@ function trackResults(json) {
             var random = randomize(generatedResults.length);
             var trackID = generatedResults[random];
             answer = trackID.trackName;
-            generatedResults.push( { "correctID": trackID });
-            generatedResults.splice([answer], 1);
+            console.log(generatedResults);
             getLyrics(trackID);
         }
     } else {
@@ -80,23 +83,13 @@ function getLyrics(trackID) {
 }
 
 function generateQuestions(lyric) {
-    var question = [];
-    for (var i = 0; i < 5; i++) {
-        var randomIndex = randomize(generatedResults.length);
-        question.push( { "trackname": generatedResults[randomIndex].trackName} );
-        generatedResults.splice([randomIndex], 1);
-    }
-
-    var randomTrack = randomize(question.length);
-    question[randomTrack].trackname = answer;
-
     var titleEl = document.getElementById("question-title");
     titleEl.textContent = lyric;
 
     choicesEl.innerHTML = "";
 
-    for (var i = 0; i < question.length; i++) {
-      choice = question[i].trackname;
+    for (var i = 0; i < generatedResults.length; i++) {
+      var choice = generatedResults[i].trackName;
       var answerButton = document.createElement("button");
       answerButton.setAttribute("class", "choice");
       answerButton.setAttribute("value", choice);
