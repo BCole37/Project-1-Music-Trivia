@@ -86,12 +86,14 @@ function generateQuestions(lyric) {
         question.push( { "trackname": generatedResults[randomIndex].trackName} );
         generatedResults.splice([randomIndex], 1);
     }
+    console.log(question)
 
     var randomTrack = randomize(question.length);
     question[randomTrack].trackname = answer;
 
     var titleEl = document.getElementById("question-title");
     titleEl.textContent = lyric;
+    titleEl.classList.add("text-center");
 
     choicesEl.innerHTML = "";
 
@@ -99,6 +101,7 @@ function generateQuestions(lyric) {
       choice = question[i].trackname;
       var answerButton = document.createElement("button");
       answerButton.setAttribute("class", "choice");
+      answerButton.classList.add("btn", "btn-primary");
       answerButton.setAttribute("value", choice);
 
       answerButton.textContent = i + 1 + ". " + choice;
@@ -125,7 +128,7 @@ function startQuiz() {
   startScreenEl.setAttribute("class", "hide");
 
   // reveals the questions 
-  questionsEl.removeAttribute("class");
+  questionsEl.classList.remove("hide");
 
   getArtist();
 }
@@ -163,7 +166,7 @@ function quizEnd() {
 
   // show end screen
   var endScreenEl = document.getElementById("end-screen");
-  endScreenEl.removeAttribute("class");
+  endScreenEl.classList.remove("hide");
 
   // show final score
   var finalScoreEl = document.getElementById("final-score");
@@ -174,7 +177,9 @@ function quizEnd() {
 }
 
 
-function saveHighscore() {
+function saveHighscore(e) {
+    e.preventDefault();
+
   // get initials
   var initials = initialsEl.value.trim();
 

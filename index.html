@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Music Trivia</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-     <!-- Links -->
-     <link
-     rel="stylesheet"
-     href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-   />
-   <link
-     rel="stylesheet"
-     href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-   />
-   <link
-     href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-     rel="stylesheet"
-   />
+    <!-- Links -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css" />
-  </head>
+</head>
 
-  <body>
-    <div class="scores"><a href="HighscorePage.html">View Highscores</a></div>
+<body>
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="nav-item nav-link text-white" href="HighscorePage.html">View Highscores</a>
+    </nav> -->
+    <div class="scores"><a class="text-white" href="HighscorePage.html">View Highscores</a></div>
     <header class="jumbotron">
         <h1>Music Trivia</h1>
 
@@ -29,35 +26,49 @@
 
 
     <div class="wrapper">
-      <!-- what shows up at first -->
-      <div id="start-screen" class="start">
+        <!-- what shows up at first -->
+        <div id="start-screen" class="start">
+            <p>
+                Attach these songs to the correct artist.
+            </p>
+            <button id="start" class="btn btn-primary">Start Quiz</button>
+        </div>
+        <!-- hides when first loaded -->
+        <div id="questions" class="hide">
+            <h2 id="question-title"></h2>
+            <div id="choices" class="choices"></div>
+        </div>
 
-        <p>
-            Attach these songs to the correct artist.
-        </p>
-        <button id="start">Start Quiz</button>
-      </div>
-      <!-- hides when first loaded -->
-      <div id="questions" class="hide">
-        <span id="question-title"></span>
-        <div id="choices" class="choices"></div>
-      </div>
+        <!--  hides when first loaded-->
+        <div id="end-screen" class="hide text-center">
+            <h2>All done!</h2>
+            <p>Your final score is <span id="final-score"></span>.</p>
 
-      <!--  hides when first loaded-->
-      <div id="end-screen" class="hide">
-        <h2>All done!</h2>
-        <p>Your final score is <span id="final-score"></span>.</p>
-        <p>
-          Enter initials: <input type="text" id="initials"/>
-          <button id="submit">Submit</button>
-        </p>
-      </div>
+            <form >
+                <div class="form-row align-items-center justify-content-center">
+                    <div class="col-auto">
+                        <label class="sr-only" for="initials">Initials</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">Enter initials:</div>
+                            </div>
+                            <input type="text" class="form-control" id="initials">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" id="submit" class="btn btn-primary mb-2">Submit</button>
+                    </div>
+                </div>
+            </form>
 
-      <div id="feedback" class="feedback hide"></div>
+        </div>
+
+        <div id="feedback" class="feedback hide"></div>
     </div>
 
     <!-- script links -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>
