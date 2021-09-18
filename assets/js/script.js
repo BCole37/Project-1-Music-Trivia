@@ -166,7 +166,6 @@ function questionClick() {
   quizProgressBarEl.style.width = progress + "%";
   quizProgressBarEl.setAttribute("aria-valuenow", progress)
 
-
   // end after last question else move to next question
   if (currentQuestionIndex >= quizLength) {
     quizEnd();
@@ -178,7 +177,8 @@ function questionClick() {
 
 // switches display from the questions screen to the results screen
 function quizEnd() {
-
+  quizProgressBarEl.classList.remove("progress-bar-animated")
+  quizProgressBarEl.classList.remove("progress-bar-striped")
 
   // show end screen
   var endScreenEl = document.getElementById("end-screen");
