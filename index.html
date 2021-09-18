@@ -15,15 +15,13 @@
 </head>
 
 <body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="nav-item nav-link text-white" href="HighscorePage.html">View Highscores</a>
-    </nav> -->
     <div class="scores"><a class="text-white" href="HighscorePage.html">View Highscores</a></div>
     <header class="jumbotron">
         <h1>Music Trivia</h1>
-
+    <div class="progress" id="quiz-progress">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" id="quiz-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
     </header>
-
 
     <div class="wrapper">
         <!-- what shows up at first -->
@@ -31,12 +29,38 @@
             <p>
                 Attach these songs to the correct artist.
             </p>
-            <button id="start" class="btn btn-primary">Start Quiz</button>
+            <form>
+                <div class="form-row align-items-center justify-content-center">
+                    <select class="custom-select" id="quiz-length">
+                        <option selected value="3">3 Question</option>
+                        <option value="5">5 Quesitons</option>
+                        <option value="10">10 Questions</option>
+                    </select>
+                    <button type="submit" id="start" class="btn btn-primary">Start Quiz</button>
+                </div>
+            </form>
         </div>
+
         <!-- hides when first loaded -->
         <div id="questions" class="hide">
-            <h2 id="question-title"></h2>
-            <div id="choices" class="choices"></div>
+
+
+            <h2 id="question-title">
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+            </h2>
+
+            <div id="choices" class="choices">
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+
+
+            </div>
         </div>
 
         <!--  hides when first loaded-->
@@ -44,7 +68,7 @@
             <h2>All done!</h2>
             <p>Your final score is <span id="final-score"></span>.</p>
 
-            <form >
+            <form>
                 <div class="form-row align-items-center justify-content-center">
                     <div class="col-auto">
                         <label class="sr-only" for="initials">Initials</label>
