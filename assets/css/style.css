@@ -1,0 +1,103 @@
+  /*sets global font */
+  body {
+    font-family: "Times New Roman";
+  }
+
+  #question-title {
+    white-space: pre-wrap;
+  }
+
+  .wrapper {
+    margin: 100px auto 0 auto;
+    max-width: 600px;
+  }
+  
+    /* allows things to be hidden at certian times such as questions on first loading */
+  .hide {
+    display: none;
+  }
+  
+  .start {
+    text-align: center;
+  }
+  
+  .jumbotron {
+    text-align: center;
+    background-color: transparent;
+    background-color: maroon;
+    color: white;
+    border-radius: 0;
+    border-bottom: 10px solid black;
+  }
+
+  .scores {
+    position: absolute;
+    color: darkred;
+    top: 10px;
+    left: 10px;
+  }
+  
+    /* timer in top right */
+
+  .timer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.1s;
+  }
+  
+  /* interaction change color on hover */
+  a:hover {
+    color: blue;
+  }
+  
+  /* right or wrong feedback*/
+  .feedback {
+    font-size: 130%;
+    margin-top: 20px;
+    padding-top: 10px;
+    color: gray;
+    border-top: 2px solid grey;
+  }
+
+  /* button settings */
+  button {
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 100%;
+    background-color: maroon;
+    border-radius: 5px;
+    padding: 3px 15px;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: blue;
+  }
+  
+  .choices button {
+    display: block;
+  }
+  
+  /* the intials section style*/
+  input[type="text"] {
+    font-size: 100%;
+  }
+  
+  ol {
+    padding-left: 0px;
+    max-height: 400px;
+    overflow: auto;
+  }
+  
+  li {
+    padding: 5px;
+    list-style: square;
+  }
+  
