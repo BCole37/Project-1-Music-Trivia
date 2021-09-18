@@ -146,14 +146,10 @@ function questionClick() {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 2000);
 
- 
-  
-  // next question
-
-  // currentQuestionIndex++;
+   currentQuestionIndex++;
 
   // end after last question else move to next question
-  if (currentQuestionIndex === questions.length) {
+  if (currentQuestionIndex > 4) {
     quizEnd();
   } else {
      getArtist();
