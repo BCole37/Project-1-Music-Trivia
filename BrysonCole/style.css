@@ -1,11 +1,8 @@
   /*sets global font */
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Times New Roman";
   }
 
-  #question-title {
-    white-space: pre-wrap;
-  }
 
   .wrapper {
     margin: 100px auto 0 auto;
@@ -24,7 +21,7 @@
   .jumbotron {
     text-align: center;
     background-color: transparent;
-    background-color: dodgerblue;
+    background-color: maroon;
     color: white;
     border-radius: 0;
     border-bottom: 10px solid black;
