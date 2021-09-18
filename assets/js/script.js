@@ -6,28 +6,114 @@ var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
 
-var questions = [
-  {
-    title: "Shape of You",
-    choices: ["Ed Sheeran", "The Weeknd", "Tones And I", "Drake"],
-    answer: "Ed Sheeran"
-  },
-  {
-      title: "Blinding Lights",
-      choices: ["Ed Sheeran", "The Weeknd", "Tones And I", "Drake"],
-      answer: "The Weeknd"
-  },
-  {
-      title: "Dance Monkey",
-      choices: ["Ed Sheeran", "The Weeknd", "Tones And I", "Drake"],
-      answer: "Tones And I"
-  },
-  {
-      title: "One Dance",
-      choices: ["Ed Sheeran", "The Weeknd", "Tones And I", "Drake"],
-      answer: "Drake"
-  }         
-];
+var key = "903e9e034afc51efaa5991d33e9e4306";
+
+var generatedResults = [];
+var answer = "";
+
+function artistResults(json) {
+    if (json.message.header.status_code == "200" && json.message.body.artist.artist_name !== "") {
+        artist = json.message.body.artist.artist_name;
+        getTracks(artist);
+    } else {
+        console.log("artistsResults() had an error.  Starting over.");
+        getArtist();
+    }
+}
+
+function trackResults(json) {
+    generatedResults = [];
+    
+    if (json.message.header.status_code == "200" && json.message.body.track_list.length > 0) {
+        for (var i = 0; i < json.message.body.track_list.length; i++) {
+            if (json.message.body.track_list[i].track.explicit == 0 && json.message.body.track_list[i].track.has_lyrics == 1) {
+                generatedResults.push( {"trackID": json.message.body.track_list[i].track.track_id, 
+                "artist": json.message.body.track_list[i].track.artist_name, 
+                "trackName": json.message.body.track_list[i].track.track_name });
+            }
+        }
+        if (generatedResults.length == 0 || generatedResults.length < 5) {
+            getArtist();
+        } else {
+            var random = randomize(generatedResults.length);
+            var trackID = generatedResults[random];
+            answer = trackID.trackName;
+            generatedResults.push( { "correctID": trackID });
+            generatedResults.splice([answer], 1);
+            getLyrics(trackID);
+        }
+    } else {
+        console.log("trackResults() had an error.  Starting over.");
+        getArtist();
+    }
+}
+
+function lyricResults(json) {
+    if (json.message.header.status_code == "200" && json.message.body.lyrics_body !== "") {
+        var lyric = json.message.body.lyrics.lyrics_body.split(/\r?\n/);
+        var lyrics = [];
+        for (var i = 0; i < 3; i++) {
+          lyrics += lyric[i] + "\n";
+        }  
+        generateQuestions(lyrics);
+    } else {
+        console.log("lyricResults() had an error.  Starting over.");
+        getArtist();
+    }
+}
+
+function getArtist() {
+    var randomID = randomize(9999);
+    var artistURL = "https://api.musixmatch.com/ws/1.1/artist.get?format=jsonp&callback=callback&artist_id=" + randomID + "&apikey=" + key;
+    $.ajax({ url: artistURL, dataType: "jsonp", jsonpCallback: "artistResults" });
+}
+
+function getTracks(artist) {
+    var trackURL = "https://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=callback&q_artist=" + artist + "&f_lyrics_language=en&f_has_lyrics=1&quorum_factor=1&apikey=" + key;
+    $.ajax({ url: trackURL, dataType: "jsonp", jsonpCallback: "trackResults" });
+}
+
+function getLyrics(trackID) {
+    lyricID = trackID.trackID;
+    var trackURL = "https://api.musixmatch.com/ws/1.1/track.lyrics.get?format=jsonp&callback=callback&track_id=" + lyricID + "&apikey=" + key;
+    $.ajax({ url: trackURL, dataType: "jsonp", jsonpCallback: "lyricResults" });
+}
+
+function generateQuestions(lyric) {
+    var question = [];
+    for (var i = 0; i < 5; i++) {
+        var randomIndex = randomize(generatedResults.length);
+        question.push( { "trackname": generatedResults[randomIndex].trackName} );
+        generatedResults.splice([randomIndex], 1);
+    }
+
+    var randomTrack = randomize(question.length);
+    question[randomTrack].trackname = answer;
+
+    var titleEl = document.getElementById("question-title");
+    titleEl.textContent = lyric;
+
+    choicesEl.innerHTML = "";
+
+    for (var i = 0; i < question.length; i++) {
+      choice = question[i].trackname;
+      var answerButton = document.createElement("button");
+      answerButton.setAttribute("class", "choice");
+      answerButton.setAttribute("value", choice);
+
+      answerButton.textContent = i + 1 + ". " + choice;
+
+      answerButton.addEventListener("click", questionClick);
+
+      choicesEl.appendChild(answerButton);
+    }
+    console.log(answer);
+}
+
+
+function randomize(length) {
+    return Math.floor(Math.random() * (length - 1));
+}
 
 // quiz variables
 var currentQuestionIndex = 0;
@@ -41,40 +127,12 @@ function startQuiz() {
   // reveals the questions 
   questionsEl.removeAttribute("class");
 
-  getQuestion();
-}
-
-function getQuestion() {
-  // gets current question from questions variable
-  var currentQuestion = questions[currentQuestionIndex];
-
-  // update question
-  var titleEl = document.getElementById("question-title");
-  titleEl.textContent = currentQuestion.title;
-
-  // removes old choices
-  choicesEl.innerHTML = "";
-
-  // loop through answers
-  currentQuestion.choices.forEach(function(choice, i) {
-    // create new button for each answer
-    var answerButton = document.createElement("button");
-    answerButton.setAttribute("class", "choice");
-    answerButton.setAttribute("value", choice);
-
-    answerButton.textContent = i + 1 + ". " + choice;
-
-    // looks for a click on each answer
-    answerButton.addEventListener("click", questionClick);
-
-    // display on the page
-    choicesEl.appendChild(answerButton);
-  });
+  getArtist();
 }
 
 function questionClick() {
   // check if answer is correct
-  if (this.value !== questions[currentQuestionIndex].answer) {
+  if (this.value !== answer) {
    
     feedbackEl.textContent = "Incorrect";
     } else {
@@ -88,14 +146,17 @@ function questionClick() {
     feedbackEl.setAttribute("class", "feedback hide");
   }, 2000);
 
+ 
+  
   // next question
-  currentQuestionIndex++;
+
+  // currentQuestionIndex++;
 
   // end after last question else move to next question
   if (currentQuestionIndex === questions.length) {
     quizEnd();
   } else {
-    getQuestion();
+     getArtist();
   }
 }
 
