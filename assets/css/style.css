@@ -28,6 +28,7 @@
     color: white;
     border-radius: 0;
     border-bottom: 10px solid black;
+    min-height: 150px;
   }
 
   .scores {
@@ -142,4 +143,9 @@
 
   #quiz-length {
     width: 25%;
+  }
+
+  #quiz-progress {
+    margin-top: 20px;
+    margin-bottom: -35px;
   }
