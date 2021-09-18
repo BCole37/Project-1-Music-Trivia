@@ -31,12 +31,36 @@
             <p>
                 Attach these songs to the correct artist.
             </p>
-            <button id="start" class="btn btn-primary">Start Quiz</button>
+            <form>
+                <div class="form-row align-items-center justify-content-center">
+                    <select class="custom-select" id="quiz-length">
+                        <option selected value="3">3 Question</option>
+                        <option value="5">5 Quesitons</option>
+                        <option value="10">10 Questions</option>
+                    </select>
+                    <button type="submit" id="start" class="btn btn-primary">Start Quiz</button>
+                </div>
+            </form>
         </div>
+
         <!-- hides when first loaded -->
         <div id="questions" class="hide">
-            <h2 id="question-title"></h2>
-            <div id="choices" class="choices"></div>
+            <h2 id="question-title">
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+                <div class="skeleton skeleton-lyric"></div>
+            </h2>
+
+            <div id="choices" class="choices">
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+                <div class="skeleton skeleton-button"></div>
+
+
+            </div>
         </div>
 
         <!--  hides when first loaded-->
@@ -44,7 +68,7 @@
             <h2>All done!</h2>
             <p>Your final score is <span id="final-score"></span>.</p>
 
-            <form >
+            <form>
                 <div class="form-row align-items-center justify-content-center">
                     <div class="col-auto">
                         <label class="sr-only" for="initials">Initials</label>

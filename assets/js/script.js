@@ -5,11 +5,15 @@ var submitBtn = document.querySelector("#submit");
 var startBtn = document.querySelector("#start");
 var initialsEl = document.querySelector("#initials");
 var feedbackEl = document.querySelector("#feedback");
+var quizLengthEl = document.querySelector("#quiz-length");
 
 var key = "903e9e034afc51efaa5991d33e9e4306";
 
 var generatedResults = [];
 var answer = "";
+
+// default length of 3
+var quizLength = 3;
 
 function artistResults(json) {
     if (json.message.header.status_code == "200" && json.message.body.artist.artist_name !== "") {
@@ -122,7 +126,10 @@ function randomize(length) {
 var currentQuestionIndex = 0;
 var finalScore = 0;
 
-function startQuiz() {
+function startQuiz(e) {
+  e.preventDefault();
+
+  quizLength = quizLengthEl.value;
   // hides the start screen
   var startScreenEl = document.getElementById("start-screen");
   startScreenEl.setAttribute("class", "hide");
@@ -152,7 +159,7 @@ function questionClick() {
    currentQuestionIndex++;
 
   // end after last question else move to next question
-  if (currentQuestionIndex > 4) {
+  if (currentQuestionIndex >= quizLength) {
     quizEnd();
   } else {
      getArtist();
