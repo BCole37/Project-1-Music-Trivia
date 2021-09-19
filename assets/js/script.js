@@ -8,7 +8,7 @@ var feedbackEl = document.querySelector("#feedback");
 var quizLengthEl = document.querySelector("#quiz-length");
 var quizProgressBarEl = document.querySelector("#quiz-bar");
 
-var key = "903e9e034afc51efaa5991d33e9e4306";
+var key = "ef28d9cd6b245bf0f5bc5b24a99b2289";
 
 var generatedResults = [];
 var answer = "";
@@ -17,7 +17,7 @@ var answer = "";
 var quizLength = 3;
 
 function artistResults(json) {
-
+  console.log(json);
   if (json.message.header.status_code == "200" && json.message.body.artist.artist_name !== "") {
     artist = json.message.body.artist.artist_name;
     getTracks(artist);
@@ -103,7 +103,7 @@ function getLyrics(trackID) {
 function generateQuestions(lyric) {
   //get the element and display the lyric
   var titleEl = document.getElementById("question-title");
-  titleEl.textContent = lyric;
+  titleEl.textContent = lyric + "\n " + generatedResults[0].artist;
   titleEl.classList.add("text-center");
   choicesEl.innerHTML = "";
 
