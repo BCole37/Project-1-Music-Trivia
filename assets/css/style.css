@@ -5,6 +5,7 @@
 
   #question-title {
     white-space: pre-wrap;
+    text-align: center;
   }
 
   .wrapper {
@@ -118,6 +119,7 @@
     display: block;
     border-radius: 10px;
     margin-bottom: -70px;
+    align-items: center;
   }
   
   /* this is makes it so every other lyric is 75% */
@@ -167,3 +169,4 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
+
