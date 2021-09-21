@@ -33,34 +33,34 @@ This project is a Music trivia game app, where the user is provided with a lyric
 
 ## Project Demo
 ### Start Screen
-![Start Screen](assets\images\StartScreen.png)
+![Start Screen](assets/images/StartScreen.png)
 * This screen is displayed when the user first goes to the site.
 * They have the option to choose the quiz length from the dropdown.
 * They can check previous highscores by clicking the view highscores at the top left.
 
 ### Quiz Length
-![Quiz Length](assets\images\QuizLength.png)
+![Quiz Length](assets/images/QuizLength.png)
 * The default quiz lengths are 3, 5, or 10 questions.
 * The quiz would be scored by the percentage they get correct.
 * For this demo we will choose 3 questions for the length.
 
 ### First Question
-![First Question](assets\images\FirstQuestion.png)
+![First Question](assets/images/FirstQuestion.png)
 * This is the first question in the quiz out of three.
 * The progress bar above is at 0%.
 
 ### Second Question
-![Second Question](assets\images\SecondQuestion.png)
+![Second Question](assets/images/SecondQuestion.png)
 * This is the second question in the quiz out of three.
 * The progress bar above is now at 33%.
 
 ### Third Question
-![Third Question](assets\images\ThirdQuestion.png)
+![Third Question](assets/images/ThirdQuestion.png)
 * This is the third question in the quiz out of three.
 * The progress bar above is now at 66%.
 
 ### End Screen
-![End Screen](assets\images\youtubelinks.png)
+![End Screen](assets/images/youtubelinks.png)
 * This screen shows the user their final score in percentage.
 * The progress bar above is at 100% and is no longer moving.
 * They can enter their initials and saved it to the leaderboard.
@@ -68,7 +68,7 @@ This project is a Music trivia game app, where the user is provided with a lyric
 * Each song will have a link to the youtube video followed by the name.
 
 ### Highscore Screen
-![Highscore Screen](assets\images\ScoreScreen.png)
+![Highscore Screen](assets/images/ScoreScreen.png)
 * This screen the user can view previous highscores.
 * If two users has the same score they will be ranked under the previous user.
 * This is also a clear highscore button which will clear all scores on the leaderboard.
