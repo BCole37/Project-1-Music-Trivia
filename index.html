@@ -57,44 +57,39 @@
                 <div class="skeleton skeleton-button"></div>
                 <div class="skeleton skeleton-button"></div>
                 <div class="skeleton skeleton-button"></div>
-
-
             </div>
         </div>
 
         <!--  hides when first loaded-->
-        <div id="end-screen" class="hide text-center">
-            <h2>All done!</h2>
-            <p>Your final score is <span id="final-score"></span>.</p>
-            <ul id="answers-list" class="list-group">
+        <div id="feedback" class="feedback hide"></div>
+    </div>
+    <div id="end-screen" class="hide text-center">
+        <h2>All done!</h2>
+        <p>Your final score is <span id="final-score"></span>.</p>
 
-            </ul>
-            <p id="link-to-youtube"> </p>
-            <p>
-            <form>
-                <div class="form-row align-items-center justify-content-center">
-                    <div class="col-auto">
-                        <label class="sr-only" for="initials">Initials</label>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Enter initials:</div>
-                            </div>
-                            <input type="text" class="form-control" id="initials">
+        <form id=initial-form>
+            <div class="form-row align-items-center justify-content-center">
+                <div class="col-auto">
+                    <label class="sr-only" for="initials">Initials</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Enter initials:</div>
                         </div>
-                    </div>
-                    <div class="col-auto">
-                        <button type="submit" id="submit" class="btn btn-primary mb-2">Submit</button>
+                        <input type="text" class="form-control" id="initials">
                     </div>
                 </div>
-            </form>
-        </div>
-        <div id="feedback" class="feedback hide"></div>
+                <div class="col-auto">
+                    <button type="submit" id="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </form>
+        <ul id="answers-list"></ul>
     </div>
 
     <!-- script links -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
-        <script src="assets/js/script.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 
 </html>

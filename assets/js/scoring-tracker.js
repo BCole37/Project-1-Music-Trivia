@@ -13,20 +13,16 @@ function printHighscores() {
   });
 
   console.log(highscores);
-  // highscores.forEach(function (score) {
-  //   // create li element and add to the list
-  //   // var scoreAdd = document.createElement("li");
-  //   // scoreAdd.textContent = score.initials + " - " + score.score;
 
-  //   // display by appending
-  //   // var list = document.getElementById("highscores");
-  //   // list.appendChild(scoreAdd);
-  // }
-
+  // creates the table for the highscore
   for (let i = 0; i < highscores.length; i++) {
+    // the tables row
     var trEl = document.createElement("tr");
+    // the data for the name
     var td1El = document.createElement("td");
+    // the data for the score
     var td2El = document.createElement("td");
+    // the rank header
     var thEl = document.createElement("th");
 
     thEl.textContent = (i + 1) + ".";
@@ -34,8 +30,10 @@ function printHighscores() {
     td1El.textContent = highscores[i].initials;
     td2El.textContent = highscores[i].score;
 
+    // append the elements to the table row
     trEl.append(thEl, td1El, td2El);
 
+    // append the row to the table
     tableEl.append(trEl);
   }
 }

@@ -8,9 +8,10 @@ var feedbackEl = document.querySelector("#feedback");
 var quizLengthEl = document.querySelector("#quiz-length");
 var quizProgressBarEl = document.querySelector("#quiz-bar");
 
+// key for musixmatch
 var key = "ef28d9cd6b245bf0f5bc5b24a99b2289";
-var youtubeKey = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm";
 
+// used to store the answers to the quiz questions
 var quizAnswers = [];
 var generatedResults = [];
 var answer = "";
@@ -177,63 +178,73 @@ function questionClick() {
   }
 }
 
-
 // switches display from the questions screen to the results screen
 async function quizEnd() {
   quizProgressBarEl.classList.remove("progress-bar-animated")
   quizProgressBarEl.classList.remove("progress-bar-striped")
 
-// show end screen
-var endScreenEl = document.getElementById("end-screen");
-endScreenEl.classList.remove("hide");
+  // show end screen
+  var endScreenEl = document.getElementById("end-screen");
+  endScreenEl.classList.remove("hide");
 
-// show final score
-var finalScoreEl = document.getElementById("final-score");
-finalScoreEl.textContent = finalScore;
-console.log(quizAnswers)
+  // show final score
+  var finalScoreEl = document.getElementById("final-score");
+  finalScoreEl.textContent = finalScore;
+  console.log(quizAnswers)
 
-// hide questions section
-questionsEl.setAttribute("class", "hide");
+  // hide questions section
+  questionsEl.setAttribute("class", "hide");
 
-var answerslist =$("#answers-list");
+  var answerslist = $("#answers-list");
 
-for (var i = 0; i < quizAnswers.length; i++) {
-  var quizAnswer = quizAnswers[i];
-  var videoUrl = await searchtest(quizAnswer)
-  console.log(videoUrl)
-  var listItemText = quizAnswer + " Copy and paste this link into your browser for video " +videoUrl ;
-  var li = $("<li>").text(listItemText);
-  li.attr("id","answers-list");
-  li.attr("data-Answer", quizAnswer); 
-  li.attr("class", "list-group-item");
+  for (var i = 0; i < quizAnswers.length; i++) {
+    var quizAnswer = quizAnswers[i];
+    var videoId = await searchtest(quizAnswer)
 
-  console.log(li);
-  answerslist.prepend(li);
+    console.log(videoId)
 
-}
-}
+    var linkEl = document.createElement("a");
+    if (videoId === "") {
+      linkEl.href = "https://www.youtube.com/results?search_query=" + quizAnswer.replace(" ", "+");
+    }
+    else {
+      linkEl.href = "https://www.youtube.com/watch/" + videoId;
+    }
+    
+    linkEl.target = "_blank";
 
-$("#answers-list").on("click",searchtest);
-function searchtest(quizAnswer){
+    var imageEl = document.createElement("img");
+    imageEl.src = "https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg"
+    imageEl.width = 480;
+    imageEl.height = 360;
 
-console.log(quizAnswer)
-//${getSearchTerm}
-const YOUTUBE_API_KEY = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm-XiWeh8p_Alo";
-const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${quizAnswer}&key=${YOUTUBE_API_KEY}`;
-console.log(url);
-return fetch(url)
-.then(response => response.json())
-.then(data => {
-  console.log(data)
-  var videoURL =  "https://www.youtube.com/embed/" + data.items[0].id.videoId;
-  console.log(videoURL);
-  return videoURL;
+    var pEl = document.createElement("p");
+    pEl.textContent = quizAnswer;
 
-
-});
+    linkEl.append(imageEl, pEl);
+    answerslist.prepend(linkEl);
+  }
 }
 
+$("#answers-list").on("click", searchtest);
+function searchtest(quizAnswer) {
 
+  console.log(quizAnswer)
+  const YOUTUBE_API_KEY = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm-XiWeh8p_Alo";
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${quizAnswer}&key=${YOUTUBE_API_KEY}`;
+  console.log(url);
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      if (data.items !== undefined) {
+        return data.items[0].id.videoId;
+      }
+      else {
+        return ""
+      }
+    });
+}
 
 function saveHighscore(e) {
   e.preventDefault();
