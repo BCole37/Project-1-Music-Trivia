@@ -9,7 +9,7 @@ var quizLengthEl = document.querySelector("#quiz-length");
 var quizProgressBarEl = document.querySelector("#quiz-bar");
 
 // key for musixmatch
-var key = "ef28d9cd6b245bf0f5bc5b24a99b2289";
+var key = "d1cd42f8fb7251efca450254d1063094"; // "ef28d9cd6b245bf0f5bc5b24a99b2289";
 
 // used to store the answers to the quiz questions
 var quizAnswers = [];
@@ -21,10 +21,29 @@ var quizLength = 3;
 
 function artistResults(json) {
   console.log(json);
+  var titleEl = document.getElementById("question-title");
+  var returnBtn = document.createElement("button");
+  returnBtn.textContent = "Go Back";
+  returnBtn.classList.add("btn", "btn-primary", "mb-2");
+
+  var returnEl = document.createElement("a")
+  returnEl.href = "index.html";
+  returnEl.classList.add("d-flex", "justify-content-center");
+  returnEl.append(returnBtn);
+
   if (json.message.header.status_code == "200" && json.message.body.artist.artist_name !== "") {
     artist = json.message.body.artist.artist_name;
     getTracks(artist);
-  } else {
+  }
+  else if (json.message.header.status_code == "403") {
+    questionsEl.insertBefore(returnEl, choicesEl);
+    titleEl.textContent = ("403 Error: Unauthorized access to Musixmatch API, please renew your API key.");
+  }
+  else if (json.message.header.status_code == "401") {
+    questionsEl.insertBefore(returnEl, choicesEl);
+    titleEl.textContent = ("401 Error: Daily use maxed out for Musixmatch API, 2000 Api Calls per day and 500 Lyrics display per day.");
+  }
+  else {
     console.log("artistsResults() had an error.  Starting over.");
     getArtist();
   }
@@ -210,7 +229,7 @@ async function quizEnd() {
     else {
       linkEl.href = "https://www.youtube.com/watch/" + videoId;
     }
-    
+
     linkEl.target = "_blank";
 
     var imageEl = document.createElement("img");
