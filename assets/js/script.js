@@ -9,7 +9,7 @@ var quizLengthEl = document.querySelector("#quiz-length");
 var quizProgressBarEl = document.querySelector("#quiz-bar");
 
 var key = "ef28d9cd6b245bf0f5bc5b24a99b2289";
-var youtubeKey = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm-XiWeh8p_Alo";
+var youtubeKey = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm";
 
 var quizAnswers = [];
 var generatedResults = [];
@@ -120,9 +120,6 @@ function generateQuestions(lyric) {
     answerButton.addEventListener("click", questionClick);
     choicesEl.appendChild(answerButton);
   }
-  //Our little cheat answer.  REMOVE BEFORE FINAL SUBMISSION
-
-  console.log(answer);
 }
 
 //little helper function to get a random number
@@ -188,7 +185,7 @@ async function quizEnd() {
 
 // show end screen
 var endScreenEl = document.getElementById("end-screen");
-endScreenEl.removeAttribute("class");
+endScreenEl.classList.remove("hide");
 
 // show final score
 var finalScoreEl = document.getElementById("final-score");
@@ -269,4 +266,3 @@ submitBtn.addEventListener("click", saveHighscore);
 
 // start quiz
 startBtn.addEventListener("click", startQuiz);
-
