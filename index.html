@@ -66,7 +66,11 @@
         <div id="end-screen" class="hide text-center">
             <h2>All done!</h2>
             <p>Your final score is <span id="final-score"></span>.</p>
+            <ul id="answers-list" class="list-group">
 
+            </ul>
+            <p id="link-to-youtube"> </p>
+            <p>
             <form>
                 <div class="form-row align-items-center justify-content-center">
                     <div class="col-auto">
@@ -89,7 +93,8 @@
 
     <!-- script links -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="assets/js/script.js"></script>
+        <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+        <script src="assets/js/script.js"></script>
 </body>
 
 </html>
