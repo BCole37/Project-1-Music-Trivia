@@ -12,6 +12,7 @@ Group Project for the UW Bootcamp
 ## About the Project
 This project is a Music trivia game app, where the user is provided with a lyric, the user then guesses the song. The user has to answer a series of questions where, each song they get correct increases their score and their score is saved on the leaderboard. It uses the Musixmatch API which allows to search and retieve a lyric, vigourously updated HTML and CSS powered by jQuery displays a highscore board which the user can access past initials of users and their result through the local storage.
 
+
 This project is created with:
 * HTML
 * CSS
@@ -23,6 +24,7 @@ This project is created with:
 * YouTube API
 
 ## Project Demo
+
 
 
 
