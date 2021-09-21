@@ -156,3 +156,14 @@
     margin-top: 20px;
     margin-bottom: -35px;
   }
+
+  #initial-form {
+    margin-bottom: 30px;
+  }
+
+  #answers-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }

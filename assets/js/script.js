@@ -199,16 +199,30 @@ async function quizEnd() {
 
   for (var i = 0; i < quizAnswers.length; i++) {
     var quizAnswer = quizAnswers[i];
-    var videoUrl = await searchtest(quizAnswer)
-    console.log(videoUrl)
-    var listItemText = quizAnswer + " Copy and paste this link into your browser for video " + videoUrl;
-    var li = $("<li>").text(listItemText);
-    li.attr("id", "answers-list");
-    li.attr("data-Answer", quizAnswer);
-    li.attr("class", "list-group-item");
+    var videoId = await searchtest(quizAnswer)
 
-    console.log(li);
-    answerslist.prepend(li);
+    console.log(videoId)
+
+    var linkEl = document.createElement("a");
+    if (videoId === "") {
+      linkEl.href = "https://www.youtube.com/results?search_query=" + quizAnswer.replace(" ", "+");
+    }
+    else {
+      linkEl.href = "https://www.youtube.com/watch/" + videoId;
+    }
+    
+    linkEl.target = "_blank";
+
+    var imageEl = document.createElement("img");
+    imageEl.src = "https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg"
+    imageEl.width = 480;
+    imageEl.height = 360;
+
+    var pEl = document.createElement("p");
+    pEl.textContent = quizAnswer;
+
+    linkEl.append(imageEl, pEl);
+    answerslist.prepend(linkEl);
   }
 }
 
@@ -216,7 +230,6 @@ $("#answers-list").on("click", searchtest);
 function searchtest(quizAnswer) {
 
   console.log(quizAnswer)
-  //${getSearchTerm}
   const YOUTUBE_API_KEY = "AIzaSyAixJPKcw7Fb9_nGDh0Jlm-XiWeh8p_Alo";
   const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${quizAnswer}&key=${YOUTUBE_API_KEY}`;
   console.log(url);
@@ -224,9 +237,12 @@ function searchtest(quizAnswer) {
     .then(response => response.json())
     .then(data => {
       console.log(data)
-      var videoURL = "https://www.youtube.com/embed/" + data.items[0].id.videoId;
-      console.log(videoURL);
-      return videoURL;
+      if (data.items !== undefined) {
+        return data.items[0].id.videoId;
+      }
+      else {
+        return ""
+      }
     });
 }
 
