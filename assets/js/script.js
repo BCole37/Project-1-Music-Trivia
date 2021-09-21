@@ -9,7 +9,7 @@ var quizLengthEl = document.querySelector("#quiz-length");
 var quizProgressBarEl = document.querySelector("#quiz-bar");
 
 // key for musixmatch
-var key = "ef28d9cd6b245bf0f5bc5b24a99b2289";
+var key = "d1cd42f8fb7251efca450254d1063094";
 
 // used to store the answers to the quiz questions
 var quizAnswers = [];
