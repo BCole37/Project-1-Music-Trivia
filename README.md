@@ -18,7 +18,7 @@ The project has been deployed to GitHub Pages. To get this project up and runnin
 * [Deployment Link](https://bcole37.github.io/Project-1-Music-Trivia/)
 
 ## About the Project
-This project is a Music trivia game app, where the user is provided with a lyric, the user then guesses the song. The user has to answer a series of questions where, each song they get correct increases their score and their score is saved on the leaderboard. It uses the Musixmatch API which allows to search and retieve a lyric, vigourously updated HTML and CSS powered by jQuery displays a highscore board which the user can access past initials of users and their result through the local storage.
+This project is a Music trivia game app, where the user is provided with a lyric, the user then guesses the song. The user has to answer a series of questions where, each song they get correct increases their score and their score is saved on the leaderboard. It uses the Musixmatch API which allows to search and retieve a lyric, Youtube API to link the songs from the quiz to the video, vigourously updated HTML and CSS powered by jQuery displays a highscore board which the user can access past initials of users and their result through the local storage.
 
 
 ### This project is created with:
@@ -96,6 +96,7 @@ This project is a Music trivia game app, where the user is provided with a lyric
 ## Usage
 * Users can test their knowledge on random music artists. 
 * They can also track their scores on the leaderboard to compete with others.
+* Can be played on tablets and smartphones.
 
 ## Credits
 Key sites that helped me with this project were:
